@@ -28,6 +28,6 @@ def step_impl(context):
     # Modify the assertion based on the actual text or structure of quotation details
     assert "Retrieve Quotation" in quotation_details.text
     time.sleep(15)
-@then('I shut down the browser')
+@then('I close down the browser')
 def close_browser(context):
     context.driver.quit()

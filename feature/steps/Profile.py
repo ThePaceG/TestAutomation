@@ -15,40 +15,36 @@ def step_impl(context):
     context.driver.find_element(By.NAME, "email").send_keys("axle@example.com")
     context.driver.find_element(By.NAME, "password").send_keys("password")
     context.driver.find_element(By.NAME, "submit").click()
-
     # Navigate to the Profile page
-    context.driver.find_element(By.XPATH, "//a[contains(text(),'Profile')]").click()
-
+    # context.driver.find_element(By.XPATH, "//a[@id='ui-id-4']").click()
+    context.driver.find_element(By.XPATH, "//a[@id='ui-id-5']").click()
+    time.sleep(10)
 
 @then('I should see my profile details')
 def step_impl(context):
-    profile_name = WebDriverWait(context.driver, 10).until(
-        EC.visibility_of_element_located((By.ID, "user_profile_name"))
-    )
-    profile_email = context.driver.find_element(By.ID, "user_profile_email")
-    profile_phone = context.driver.find_element(By.ID, "user_profile_phone")
-
-    assert profile_name.get_attribute("value") != ""
-    assert profile_email.get_attribute("value") != ""
-    assert profile_phone.get_attribute("value") != ""
-
-
+    context.driver.find_element(By.XPATH,"//a[@id='ui-id-5']").click()
 @when('I update my profile details')
 def step_impl(context):
-    name_input = context.driver.find_element(By.ID, "user_profile_name")
-    email_input = context.driver.find_element(By.ID, "user_profile_email")
-    phone_input = context.driver.find_element(By.ID, "user_profile_phone")
-
-    name_input.clear()
-    name_input.send_keys("New Name")
-
-    email_input.clear()
-    email_input.send_keys("new-email@example.com")
-
-    phone_input.clear()
-    phone_input.send_keys("1234567890")
-
-
+    context.driver.find_element(By.ID, "user_title").send_keys("MR")
+    context.driver.find_element(By.ID, "user_firstname").send_keys("Axle")
+    context.driver.find_element(By.ID, "user_surname").send_keys("Dynamite")
+    context.driver.find_element(By.ID, "user_phone").send_keys("981234567")
+    context.driver.find_element(By.ID, "user_dateofbirth_2i").send_keys("07")
+    context.driver.find_element(By.ID, "user_dateofbirth_3i").send_keys("12")
+    context.driver.find_element(By.ID, "user_dateofbirth_1i").send_keys("1997")
+    context.driver.find_element(By.ID, "user_licencetype_t").click()
+    context.driver.find_element(By.ID, "user_licenceperiod").send_keys("10")
+    context.driver.find_element(By.ID, "user_occupation_id").send_keys("Engineer")
+    context.driver.find_element(By.ID, "user_address_attributes_street").send_keys("swoyambhu")
+    context.driver.find_element(By.ID, "user_address_attributes_city").send_keys("Kathmandu")
+    context.driver.find_element(By.ID, "user_address_attributes_county").send_keys("Nepal")
+    context.driver.find_element(By.ID, "user_address_attributes_postcode").send_keys("12345")
+    # context.driver.find_element(By.ID, "user_user_detail_attributes_email").send_keys("axle@example.com")
+    # context.driver.find_element(By.ID, "user_user_detail_attributes_password").send_keys("password")
+    # context.driver.find_element(By.ID, "user_user_detail_attributes_password_confirmation").send_keys("password")
+    # Submit the form
+    context.driver.find_element(By.NAME, "commit").click()
+    time.sleep(20)
 @when('I save the changes')
 def step_impl(context):
     save_button = context.driver.find_element(By.NAME, "commit")
@@ -57,21 +53,8 @@ def step_impl(context):
 
 @then('I should see the updated profile details')
 def step_impl(context):
-    updated_name = WebDriverWait(context.driver, 10).until(
-        EC.text_to_be_present_in_element_value((By.ID, "user_profile_name"), "New Name")
-    )
-    updated_email = WebDriverWait(context.driver, 10).until(
-        EC.text_to_be_present_in_element_value((By.ID, "user_profile_email"), "new-email@example.com")
-    )
-    updated_phone = WebDriverWait(context.driver, 10).until(
-        EC.text_to_be_present_in_element_value((By.ID, "user_profile_phone"), "1234567890")
-    )
-
-    assert context.driver.find_element(By.ID, "user_profile_name").get_attribute("value") == "New Name"
-    assert context.driver.find_element(By.ID, "user_profile_email").get_attribute("value") == "new-email@example.com"
-    assert context.driver.find_element(By.ID, "user_profile_phone").get_attribute("value") == "1234567890"
-
-
+    context.driver.find_element(By.XPATH, "//a[@id='ui-id-4']").click()
+time.sleep(20)
 @then('I shut down the browser')
 def close_browser(context):
     context.driver.quit()

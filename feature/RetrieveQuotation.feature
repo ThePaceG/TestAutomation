@@ -7,4 +7,4 @@ Feature: Retrieve Quotation
     When I fill out the quotation retrieval form
     And I click the retrieve
     Then I should see the retrieved quotation detail
-    Then I shut down the browser
+    Then I  close down the browser
